@@ -1,3 +1,8 @@
+# Good practices:
+- New branch for a new feature: feature/nome-da-feature
+- New branck for a hotfix (something quick): hotfix/nome-da-hotfix
+- For pull requests, ask any project member available to review your code for you
+
 # Data analysis
 - Document here the project: ingredient_matching
 - Description: Project Description
