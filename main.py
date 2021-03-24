@@ -1,17 +1,23 @@
-import pandas as pd
-import scipy.sparse as sparse
-import numpy as np
 from fastapi import FastAPI
-from modules.model_processing import *
 from typing import Optional
 import ast
+from ingredient_matching.model_processing import *
+from ingredient_matching.w2v import word2vec
 
 app = FastAPI()
 
-# define a root `/` endpoint
-@app.get("/")
+@app.get('/')
 def index():
-    return {"Banana": 'Apple'}
+  return {'ok': True}
+
+# implement code into pipeline
+# save model into model.joblib for prediction
+# build a method in fastapi to call my model
+
+@app.get("/most_similar/{ingredient}")
+def read_item(ingredient: str):
+  ms = word2vec(ingredient)
+  return {"most_similar": ms}
 
 @app.get("/find_combination")
 def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventure: Optional[bool] = False, adventure_criteria: Optional[int]=20):
@@ -34,6 +40,3 @@ def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventur
     id_list = find_match(id_input,num_matches,min_ingredients)
     names = list_to_names(id_list)
     return {'Recommendations': names}
-
-# @app.get("/mult_rec/{input_ingredient}")
-# def output_func(input_ingredient: str):

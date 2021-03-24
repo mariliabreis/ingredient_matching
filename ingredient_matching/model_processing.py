@@ -2,10 +2,10 @@ import pandas as pd
 import scipy.sparse as sparse
 import numpy as np
 
-df_pickle = pd.read_pickle('/Users/giancarlotissot/code/mariliabreis/ingredient_matching/raw_data/recipe_list/ingr_map.pkl')
+df_pickle = pd.read_pickle('data/ingr_map.pkl')
 ingredients_clean = df_pickle[['id','replaced','count','raw_ingr']]
 
-final_sparse = sparse.load_npz(r'/Users/giancarlotissot/code/mariliabreis/ingredient_matching/raw_data/sparse_final_df.npz')
+final_sparse = sparse.load_npz(r'data/sparse_final_df.npz')
 
 from_sparse_df = final_sparse.todense()
 
