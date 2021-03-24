@@ -4,6 +4,7 @@ import numpy as np
 from fastapi import FastAPI
 from modules.model_processing import *
 from typing import Optional
+import ast
 
 app = FastAPI()
 
@@ -12,10 +13,11 @@ app = FastAPI()
 def index():
     return {"Banana": 'Apple'}
 
-@app.get("/single_rec/{input_ingredient}")
+@app.get("/find_combination")
 def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventure: Optional[bool] = False, adventure_criteria: Optional[int]=20):
     # item_id: int, q: Optional[str] = None
 
+    input_ingredient = ast.literal_eval(input_ingredient)
     # Combines other functions into a workflow
     num_matches += 1
     # num_matches = 11
