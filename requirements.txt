@@ -20,7 +20,10 @@ yapf
 gcsfs
 google-cloud-storage
 mlflow
-s3fs
+fastapi 
+typing
+gensim
+uvicorn
 
 # utilities
 six>=1.14
