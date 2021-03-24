@@ -1,17 +1,8 @@
-import joblib
 import pandas as pd
+import numpy as np
 
-combination_percentage = pd.read_csv('../raw_data/baseline_front_end/combination_percentage.csv')
-ordered_keys = pd.read_csv('../raw_data/baseline_front_end/ordered_keys.csv')
-
-def word2vec(ingredient):
-
-  word2vec = joblib.load('models/word2vec.joblib')
-  try:
-    ms = word2vec.wv.most_similar(ingredient)
-  except:
-    ms = {'ERROR': f'We are sorry but the word "{ingredient}" is not in vocabulary... try eating something else! :)'}
-  return ms
+combination_percentage = pd.read_csv('data/combination_percentage.csv')
+ordered_keys = pd.read_csv('data/ordered_keys.csv')
 
 # gets most popular combinations with one ingredient
 def most_popular(search_word):
@@ -32,7 +23,7 @@ def surprise(search_word):
     random_toptier = []
     for index in np.random.randint(0,int(size_results/3),20):
         ingr_id = ingredient_row.T.columns[index]
-        name = ordered_keys['replaced'].iloc[ingr_id]
+        name = ordered_keys['replaced'].iloc[int(ingr_id)]
         random_toptier.append(name)
 
     return random_toptier
