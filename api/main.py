@@ -14,5 +14,5 @@ def index():
 
 @app.get("/most_similar/{ingredient}")
 def read_item(ingredient: str):
-    ms = word2vec(ingredient)
-    return {"most_similar": ms}
+  ms = word2vec(ingredient)
+  return {"most_similar": ms}
