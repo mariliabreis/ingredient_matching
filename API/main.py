@@ -13,7 +13,7 @@ def index():
     return {"Banana": 'Apple'}
 
 @app.get("/single_rec/{input_ingredient}")
-def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventure: Optional[bool] = False):
+def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventure: Optional[bool] = False, adventure_criteria: Optional[int]=20):
     # item_id: int, q: Optional[str] = None
 
     # Combines other functions into a workflow
@@ -26,9 +26,11 @@ def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventur
 
     for ingredient in input_ingredient:
         id_input.append(get_id(ingredient))
-    id_list = find_match(id_input,num_matches)
+    min_ingredients = 0
+    if adventure:
+        min_ingredients = be_adventurous(id_input,adventure_criteria)
+    id_list = find_match(id_input,num_matches,min_ingredients)
     names = list_to_names(id_list)
-    names.pop(0)
     return {'Recommendations': names}
 
 # @app.get("/mult_rec/{input_ingredient}")

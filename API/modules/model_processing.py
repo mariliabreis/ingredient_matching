@@ -22,10 +22,10 @@ def get_name(ingredient_id):
     ingredient_name.reset_index(inplace=True)
     return ingredient_name.loc[0,'replaced']
 
-def find_match(id_input,num_matches):
+def find_match(id_input,num_matches,min_ingredients):
     # Returns list of ingredient IDs and count of occurances
     numpy_arr = np.nonzero(from_sparse_df[:,id_input])
-    indices = (-final_sparse[numpy_arr[0],:].sum(axis=0).A1).argsort()[:num_matches]
+    indices = (-final_sparse[numpy_arr[0],:].sum(axis=0).A1).argsort()[min_ingredients:num_matches+min_ingredients]
     return indices
 
 def list_to_names(ingredient_id_list):
@@ -35,3 +35,12 @@ def list_to_names(ingredient_id_list):
         list_.append(get_name(id))
     return list_
 
+def be_adventurous(id_input,adventure_criteria):
+    list_ = []
+    for id in id_input:
+        counts = ingredients_clean.loc[ingredients_clean['id']==id]['count'].to_list()
+#         print('###',type(counts))
+        list_.append(counts[0])
+    max_ingredients = round(max(list_) * 0.05)
+    min_criteria = min([max([max_ingredients, 10]),adventure_criteria])
+    return min_criteria
