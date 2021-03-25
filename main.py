@@ -23,6 +23,7 @@ def read_item(ingredient: str):
 def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventure: Optional[bool] = False, adventure_criteria: Optional[int]=15):
     '''Combines other functions into a workflow'''
     input_ingredient = input_ingredient.split(',')
+    stripped_list = [ingredient.strip() for ingredient in input_ingredient]
     num_matches += 1
     if type(input_ingredient) != list:
         input_ingredient = [input_ingredient]
