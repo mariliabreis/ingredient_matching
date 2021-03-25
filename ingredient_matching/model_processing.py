@@ -6,9 +6,7 @@ df_pickle = pd.read_pickle('data/ingr_map.pkl')
 ingredients_clean = df_pickle[['id','replaced','count','raw_ingr']]
 
 final_sparse = sparse.load_npz(r'data/sparse_final_df.npz')
-
 from_sparse_df = final_sparse.todense()
-
 
 def get_id(ingredient_str):
     # Transforms string input to pre-processed ID

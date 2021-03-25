@@ -3,6 +3,7 @@ from typing import Optional
 import ast
 from ingredient_matching.model_processing import *
 from ingredient_matching.w2v import word2vec
+from ingredient_matching.marilia_model import most_popular, surprise
 
 app = FastAPI()
 
@@ -36,3 +37,15 @@ def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventur
     id_list = find_match(id_input,num_matches,min_ingredients)
     names = list_to_names(id_list)
     return {'Recommendations': names}
+
+# gets most popular combinations with one ingredient
+@app.get("/most_popular/{ingredient}")
+def find_popular(ingredient: str):
+  mp = most_popular(ingredient)
+  return {"most_popular": mp}
+
+# gets surprising combinations with one ingredient, considering only the third top tier
+@app.get("/surprise/{ingredient}")
+def surprise_me(ingredient: str):
+  sur = surprise(ingredient)
+  return {"surprise": sur}
