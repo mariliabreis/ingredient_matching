@@ -21,14 +21,11 @@ def read_item(ingredient: str):
   return {"most_similar": ms}
 
 @app.get("/find_combination")
-def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventure: Optional[bool] = False, adventure_criteria: Optional[int]=20):
-    # item_id: int, q: Optional[str] = None
-
-    input_ingredient = ast.literal_eval(input_ingredient)
-    # Combines other functions into a workflow
+def output_func(input_ingredient: str, num_matches: Optional[int] = 15, adventure: Optional[bool] = False, adventure_criteria: Optional[int]=15):
+    '''Combines other functions into a workflow'''
+    input_ingredient = input_ingredient.split(',')
+    stripped_list = [ingredient.strip() for ingredient in input_ingredient]
     num_matches += 1
-    # num_matches = 11
-
     if type(input_ingredient) != list:
         input_ingredient = [input_ingredient]
     id_input = []
